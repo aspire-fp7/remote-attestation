@@ -1,0 +1,10 @@
+thirdPartyIncludeLibWS=/opt/3rd_party/libwebsockets/android/include/
+ACCLinclude=/opt/ACCL/include/
+opensslInclude=/opt/3rd_party/openssl/android/include/
+toolchainPrefix=/opt/diablo-android-gcc-toolchain/bin/arm-linux-androideabi-
+CC=$toolchainPrefix'gcc'
+LD=$toolchainPrefix'ld'
+AR=$toolchainPrefix'ar'
+C_FLAGS='-march=armv7-a -mtune=cortex-a8 -std=c99 -mfloat-abi=softfp -msoft-float -mfpu=neon -fpic -D__ANDROID'
+LD_FLAGS='--no-demangle --hash-style=sysv --no-merge-exidx-entries'
+
