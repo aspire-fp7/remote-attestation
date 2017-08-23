@@ -1,5 +1,8 @@
 #!/bin/bash
-
+set -o errexit
+set -o pipefail
+set -o nounset
+#set -o xtrace
 
 baseDir=$(dirname $0)
 filename=$(basename "$0")
@@ -43,9 +46,15 @@ echo "**** start Aspire Portal if it is not running ****"
 PORTAL_RUNNING=$(pidof uwsgi)
 [ "${PORTAL_RUNNING}" == "" ] && /opt/ASCL/aspire-portal/start-aspire-portal.sh
 
-echo "**** Launching RA server setup ****"
-/opt/RA/setup/remote_attestation_setup.sh || exit 1
-
+if ! pidof ra_manager &> /dev/null; then
+  raManagerExe=$(dirname $baseDir)/server/ra_manager
+  logFile=$backendsDir/remote_attestation/ra_manager.log
+	echo "++++ Starting Manager"
+	echo "++++ (log file: $logFile)"
+  $raManagerExe $(nproc) 2>&1 | cat >> $logFile &
+else
+	echo "++++ Manager is already running"
+fi
 
 echo "**** Deploying RA application components on server ****"
 if [ -z ${stringAID} ]; then
