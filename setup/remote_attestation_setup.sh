@@ -48,9 +48,6 @@ do
 done
 
 echo "**** RA server environment setup ****"
-echo "++++ Launching mysql service"
-sudo /etc/init.d/mysql start
-checkError $?
 
 if [ ! -z ${forceDrop} ]; then
 	# Dropping all RA database data
