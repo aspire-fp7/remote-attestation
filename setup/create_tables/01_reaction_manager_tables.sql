@@ -12,7 +12,7 @@
 CREATE TABLE IF NOT EXISTS `rm_status` (
   `id` bigint(20) NOT NULL COMMENT 'DB id for RA request RM status',
   `name` varchar(32) NOT NULL COMMENT 'Enumerative name of the request RM status',
-  `decription` varchar(50) DEFAULT NULL COMMENT 'Optional textual description of the request RM status value',
+  `decription` varchar(255) DEFAULT NULL COMMENT 'Optional textual description of the request RM status value',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='List of all the possible RA request RM statuses';
 
