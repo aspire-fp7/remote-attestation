@@ -73,13 +73,13 @@ echo "$(ls $blocksPath)"
 
 # Add new application in the DB
 echo "Removing application with AID data from database"
-mysql -u ra_user -h localhost $raDbName -e "DELETE FROM ra_application WHERE AID = '$stringAID'"
+mysql -u ra_user -h $serverAddress $raDbName -e "DELETE FROM ra_application WHERE AID = '$stringAID'"
 echo "Adding new AID in database"
-dbAppId=$(mysql -u ra_user -h localhost $raDbName \
+dbAppId=$(mysql -u ra_user -h $serverAddress $raDbName \
 	-B --disable-column-names -e \
 	"INSERT INTO ra_application( id, AID ) VALUES (null, '$stringAID' ); SELECT LAST_INSERT_ID()")
 
-mysql -u ra_user -h localhost $raDbName -e "INSERT INTO ra_reaction(id, application_id, reaction_status_id) VALUES (NULL, '$dbAppId', 2)" &>/dev/null
+mysql -u ra_user -h $serverAddress $raDbName -e "INSERT INTO ra_reaction(id, application_id, reaction_status_id) VALUES (NULL, '$dbAppId', 2)" &>/dev/null
 
 if [ ! "$(ls -A $blocksPath)" ]; then
         echo "No remote attestation extracted"

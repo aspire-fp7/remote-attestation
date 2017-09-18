@@ -14,8 +14,8 @@ filename=$(basename "$0")
 . $baseDir/deploy/deploy.env
 
 echo "Database $raDbName"
-echo "mysql -u ra_user -h localhost $raDbName -B --disable-column-names -e \"SELECT id FROM ra_application WHERE AID = '$AID'\""
-dbAppId=$(mysql -u ra_user -h localhost $raDbName -B --disable-column-names -e "SELECT id FROM ra_application WHERE AID = '$AID'")
+echo "mysql -u ra_user -h $serverAddress $raDbName -B --disable-column-names -e \"SELECT id FROM ra_application WHERE AID = '$AID'\""
+dbAppId=$(mysql -u ra_user -h $serverAddress $raDbName -B --disable-column-names -e "SELECT id FROM ra_application WHERE AID = '$AID'")
 
 if [ -z "$dbAppId" ];
 then
@@ -24,6 +24,6 @@ then
 fi
 
 echo "Application: $dbAppId"
-echo "mysql -u ra_user -h localhost $raDbName -e \"UPDATE ra_reaction SET reaction_status_id = 1 WHERE application_id = $dbAppId\""
-mysql -u ra_user -h localhost $raDbName -e "UPDATE ra_reaction SET reaction_status_id = 1 WHERE application_id = $dbAppId"
+echo "mysql -u ra_user -h $serverAddress $raDbName -e \"UPDATE ra_reaction SET reaction_status_id = 1 WHERE application_id = $dbAppId\""
+mysql -u ra_user -h $serverAddress $raDbName -e "UPDATE ra_reaction SET reaction_status_id = 1 WHERE application_id = $dbAppId"
 
