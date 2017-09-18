@@ -1,4 +1,4 @@
-CREATE USER 'ra_user'@'%';
+CREATE USER 'ra_user'@'%' IDENTIFIED BY 'aspire';
 
 GRANT ALL PRIVILEGES ON *.* TO 'ra_user'@'%' WITH GRANT OPTION;
 
