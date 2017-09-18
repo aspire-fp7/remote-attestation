@@ -21,7 +21,7 @@
 #include "ra_print_wrapping.h"
 
 
-#define DBMS_HOST                   "localhost"
+#define DBMS_HOST                   "mysql"
 #define DBMS_USER                   "ra_user"
 #define DBMS_PWD                    "aspire"
 #define DBMS_DATABASE               "RA_development"
