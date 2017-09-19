@@ -8,7 +8,9 @@ waitKey() {
 
 
 baseDir=$(dirname $0)
-srcDir=$baseDir/src
+raDir=$(dirname $baseDir)
+srcDir=$raDir/src
+objDir=$raDir/obj
 
 #
 # Options management and check
@@ -177,7 +179,7 @@ $LD -r $outDir/*.obj -o $outDir/attestators.o $LD_FLAGS || exit 1
 #	rm -v $outDir/*.obj
 #fi
 
-cp -v $baseDir/obj/$targetArch/racommon.o $outDir || exit 1
+cp -v $objDir/$targetArch/racommon.o $outDir || exit 1
 
 echo "Attestators creaeted successfully"
 
