@@ -153,7 +153,7 @@ do
 	do
 		oName="${file%.*}".o
 		echo  "Building '$oName'"
-		$CC -I$srcDir/headers -I$thirdPartyIncludeLibWS -I$ACCLinclude -I$tmpOutDir -I$opensslInclude $C_FLAGS $DEBUG -c $file -o $oName || exit 1
+		$CC -I$srcDir/headers -I$srcDir/headers/external -I$thirdPartyIncludeLibWS -I$ACCLinclude -I$tmpOutDir -I$opensslInclude $C_FLAGS $DEBUG -c $file -o $oName || exit 1
 	done
 
 	echo ""
