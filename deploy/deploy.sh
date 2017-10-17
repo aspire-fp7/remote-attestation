@@ -39,6 +39,9 @@ do
 	esac
 done
 
+echo "**** start Aspire Portal if it is not running ****"
+PORTAL_RUNNING=$(pidof uwsgi)
+[ "${PORTAL_RUNNING}" == "" ] && /opt/ASCL/aspire-portal/start-aspire-portal.sh
 
 echo "**** Launching RA server setup ****"
 /opt/RA/setup/remote_attestation_setup.sh || exit 1
