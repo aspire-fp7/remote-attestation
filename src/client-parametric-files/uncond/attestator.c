@@ -32,6 +32,7 @@ void *attestator_routine_NAYjDD3l2s(void *in_buffer, size_t len) {
     pthread_mutex_lock(&deinit_mutex_NAYjDD3l2s);
     if (force_exit_NAYjDD3l2s == 1 || in_buffer == NULL) {
         ra_fprintf(stdout, "(Attestator XXX) Exiting because application is shutting down, or in_buffer is NULL\n");
+        pthread_mutex_unlock(&deinit_mutex_NAYjDD3l2s);
         return NULL;
     }
 
@@ -77,6 +78,7 @@ void *attestator_routine_NAYjDD3l2s(void *in_buffer, size_t len) {
     if (ra_prepare_data_NAYjDD3l2s(remote_attestation_data_table_NAYjDD3l2s) != RA_SUCCESS) {
         ra_fprintf(stderr, "(Attestator %"PRIu64") Error while preparing data\n", defined_attestator_number);
         ra_fflush(stderr);
+        pthread_mutex_unlock(&deinit_mutex_NAYjDD3l2s);
         return NULL;
     }
 
@@ -107,6 +109,7 @@ void *attestator_routine_NAYjDD3l2s(void *in_buffer, size_t len) {
     ) != RA_SUCCESS) {
         ra_fprintf(stdout, "(Attestator %"PRIu64") Error hashing prepared data\n", defined_attestator_number);
         ra_fflush(stdout);
+        pthread_mutex_unlock(&deinit_mutex_NAYjDD3l2s);
         return NULL;
     }
 
@@ -136,6 +139,7 @@ void *attestator_routine_NAYjDD3l2s(void *in_buffer, size_t len) {
     if (response_buffer == NULL) {
         ra_fprintf(stderr, "(Attestator %"PRIu64") Error during allocation\n", defined_attestator_number);
         ra_fflush(stderr);
+        pthread_mutex_unlock(&deinit_mutex_NAYjDD3l2s);
         return NULL;
     }
 
