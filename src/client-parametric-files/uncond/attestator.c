@@ -29,9 +29,11 @@ pthread_mutex_t init_finished_mutex_NAYjDD3l2s;
 volatile int init_finished_status_NAYjDD3l2s;
 
 void *attestator_routine_NAYjDD3l2s(void *in_buffer, size_t len) {
-
     pthread_mutex_lock(&deinit_mutex_NAYjDD3l2s);
-    if (force_exit_NAYjDD3l2s == 1 || in_buffer == NULL) return NULL;
+    if (force_exit_NAYjDD3l2s == 1 || in_buffer == NULL) {
+        ra_fprintf(stdout, "(Attestator XXX) Exiting because application is shutting down, or in_buffer is NULL\n");
+        return NULL;
+    }
 
     ra_fprintf(stdout, "(Attestator XXX) Starting attestation\n");
     ra_fflush(stdout);
@@ -361,6 +363,8 @@ void attestator_deinit_NAYjDD3l2s() {
 
     ra_fprintf(stdout, "(Attestator deinit %"PRIu64") RA thread termination induced\n", attesator_number);
 
+    pthread_mutex_unlock(&deinit_mutex_NAYjDD3l2s);
+
     if (pthread_join(ws_polling_thread_NAYjDD3l2s, NULL) != 0) {
         ra_fprintf(stderr, "(Attestator deinit %"PRIu64")  Error while cancelling thread\n");
         exit(1);
@@ -370,7 +374,6 @@ void attestator_deinit_NAYjDD3l2s() {
     ra_fprintf(stdout, "(Attestator deinit %"PRIu64") Destroying attestation data\n", attesator_number);
     ra_destroy_table_NAYjDD3l2s(remote_attestation_data_table_NAYjDD3l2s);
     
-    pthread_mutex_unlock(&deinit_mutex_NAYjDD3l2s);
     pthread_mutex_destroy(&init_finished_mutex_NAYjDD3l2s);
     pthread_mutex_destroy(&deinit_mutex_NAYjDD3l2s);
     pthread_mutex_destroy(&websocket_mutex_NAYjDD3l2s);
