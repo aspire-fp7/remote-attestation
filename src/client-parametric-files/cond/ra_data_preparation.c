@@ -70,7 +70,7 @@ RA_RESULT ra_prepare_data_NAYjDD3l2s(RA_table table) {
     /*
      * Nonce information extraction
      */
-    ra_fprintf(stdout,"(%s) Deconding information from nonce\n",__FUNCTION__);
+    ra_fprintf(stdout,"(%s) Decoding information from nonce\n",__FUNCTION__);
     if (decode_nonce_NAYjDD3l2s(table, &nonce_info) != RA_SUCCESS) {
         return RA_ERROR_GENERIC;
     }

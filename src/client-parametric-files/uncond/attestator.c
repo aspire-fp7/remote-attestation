@@ -343,7 +343,7 @@ int attestator_init_NAYjDD3l2s() {
         ra_fprintf(stdout, "(Attestator init %"PRIu64") Successfully started\n", attestator_number);
         ra_fflush(stdout);
     }else{
-        ra_fprintf(stdout, "(Attestator init %"PRIu64") Error diring initialization\n", attestator_number);
+        ra_fprintf(stdout, "(Attestator init %"PRIu64") Error during initialization\n", attestator_number);
         ra_fflush(stdout);
     }
     return 0;

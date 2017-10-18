@@ -86,7 +86,7 @@ do
 	echo "Attestator number: $currAttestatorNumber"
 	mkdir -pv $backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/binaries || exit 1
 
-	echo "Makeing server side application dependent components"
+	echo "Building server side application dependent components"
 	echo "Block definition file: $blocksPath/$currAttestatorName"
 
 	cd $baseDir
@@ -107,7 +107,7 @@ do
 	currAttestatorDbId=$(mysql -u ra_user -h $serverAddress $raDbName -B --disable-column-names -e \
 		"INSERT INTO ra_attestator(id, application_id, attestator_no, sleep_avg) VALUES (null, '$dbAppId' , '$currAttestatorNumber' , '$frequency' ); SELECT LAST_INSERT_ID()")
 
-	echo "Generating inital 100 prepared data for current attestator (launching extractor)"
+	echo "Generating initial 100 prepared data for current attestator (launching extractor)"
 	$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/extractor $stringAID $currAttestatorNumber 32 100 > $blocksPath/extractor_$currAttestatorName.log #/dev/null
 
 	if [ -z ${currAttestatorDbId} ];
