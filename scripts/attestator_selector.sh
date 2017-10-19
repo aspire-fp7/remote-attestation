@@ -117,6 +117,7 @@ i=0
 for f in $(ls $interpreterOutputDir)
 do
 	tmpOutDir=$outDir/tmp_$f
+	rm -rf $tmpOutDir
 	mkdir -vp $tmpOutDir
 
 
