@@ -36,6 +36,3 @@ echo ""
 mkdir -p $build_dir/obj
 cd $build_dir/obj
 $repo_dir/setup/generate_racommons.sh -o .
-
-# Set up database
-$repo_dir/setup/database_setup.sh
