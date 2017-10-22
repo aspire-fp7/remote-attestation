@@ -1,0 +1,9 @@
+tags
+*.sublime*
+*swp
+*~
+*.o
+*.i
+*.s
+*.pyc
+*.vim
