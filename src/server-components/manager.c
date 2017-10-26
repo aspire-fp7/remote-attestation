@@ -58,7 +58,7 @@ volatile int force_exit;
 int total_actual_managers;
 actual_manager_t *actual_managers;
 
-struct libwebsocket_context *attestator_contexts[MAX_ATTESTATORS_ALLOWED];
+struct lws_context *attestator_contexts[MAX_ATTESTATORS_ALLOWED];
 
 pthread_mutex_t lws_contexts_mutex;
 /*************************/
@@ -166,7 +166,7 @@ int main(int argc, char **argv) {
 
         usleep(100000);
         for (int i = 0; i < MAX_ATTESTATORS_ALLOWED; ++i) {
-            libwebsocket_service(attestator_contexts[i], 50);
+            lws_service(attestator_contexts[i], 50);
         }
 
     }
