@@ -74,7 +74,8 @@ a.id = %"PRIu64" AND \
 a.id = pd.attestator_id AND \
 pd.id NOT IN \
 (SELECT DISTINCT req.prepared_data_id \
-FROM "DBMS_TAB_REQUEST" AS req);"
+FROM "DBMS_TAB_REQUEST" AS req) \
+GROUP BY pd.id;"
 
 #define DBMS_QUERY_EXTRACT_NONCE_BY_MEMORY_LABEL   "\
 SELECT pd.id , pd.nonce \
