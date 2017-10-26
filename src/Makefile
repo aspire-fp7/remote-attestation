@@ -13,13 +13,9 @@ EXTRACTOR_OUTPUT			:=	$(OUTDIR)/extractor_exe
 
 
 THIRD_PARTY_DIR				=	/opt/3rd_party
-THIRD_PARTY_INCLUDE			=	-I$(THIRD_PARTY_DIR)/libwebsockets/serverlinux/include \
-								-I$(THIRD_PARTY_DIR)/openssl/serverlinux/include \
+THIRD_PARTY_INCLUDE			=	-I$(THIRD_PARTY_DIR)/openssl/serverlinux/include
 
 ASCL_INCLUDE				=	-I/opt/ASCL/include
-
-THIRD_PARTY_LIB				=	-L$(THIRD_PARTY_DIR)/libwebsockets/serverlinux/lib \
-								-L$(THIRD_PARTY_DIR)/openssl/serverlinux/lib \
 
 ifdef DBG
 	DBG_FLAGS := -DDEBUG -g3
@@ -228,13 +224,13 @@ $(OUTDIR)/manager/%.o: $(SRCDIR)/server-components/%.c
 	@echo 'Building file: $<'
 	@mkdir -pv $(MANAGER_OBJS_DIR)
 	@echo 'Invoking: GCC C Compiler'
-	$(CC) $(C_FLAGS) $(DBG_FLAGS) $(THIRD_PARTY_INCLUDE) $(ASCL_INCLUDE) -c "$<" -o "$@" 
+	$(CC) $(C_FLAGS) $(DBG_FLAGS) $(ASCL_INCLUDE) -c "$<" -o "$@"
 
 $(OUTDIR)/verifier/%.o: $(SRCDIR)/server-components/%.c
 	@echo 'Building file: $<'
 	mkdir -p $(VERIFIER_OBJS_DIR)
 	@echo 'Invoking: GCC C Compiler'
-	$(CC) $(C_FLAGS) $(DBG_FLAGS) $(THIRD_PARTY_INCLUDE) -c "$<" -o "$@" 
+	$(CC) $(C_FLAGS) $(DBG_FLAGS) -c "$<" -o "$@"
 
 $(OUTDIR)/verifier_forwarder/%.o: $(SRCDIR)/server-components/%.c
 	@echo 'Building file: $<'
@@ -246,14 +242,14 @@ $(OUTDIR)/extractor/%.o: $(SRCDIR)/server-components/%.c
 	@echo 'Building file: $<'
 	mkdir -p $(EXTRACTOR_OBJS_DIR)
 	@echo 'Invoking: GCC C Compiler'
-	$(CC) $(C_FLAGS) $(DBG_FLAGS) $(THIRD_PARTY_INCLUDE) -c "$<" -o "$@"
+	$(CC) $(C_FLAGS) $(DBG_FLAGS) -c "$<" -o "$@"
 
 
 
 
 manager: $(MANAGER_FINAL_OBJS)
 	@echo 'Linking: $@'	
-	$(CC) $(MANAGER_FINAL_OBJS) -o $(MANAGER_OUTPUT) $(THIRD_PARTY_LIB) -static -lmysqlclient -ldl -lwebsockets -lssl -lcrypto -pthread -lm -lz
+	$(CC) $(MANAGER_FINAL_OBJS) -o $(MANAGER_OUTPUT) -lmysqlclient -ldl -lwebsockets -pthread -lm -lz
 	@echo 'Finished building $@'
 	@echo "REMEMBER: this element is application indpendent (it's enough to generate it just once)."
 	@echo ' '
@@ -268,14 +264,14 @@ verifier-forwarder: $(VERIFIER_FORWARDER_FINAL_OBJS)
 verifier: $(VERIFIER_FINAL_OBJS)
 	@echo 'Linking: $@'
 	@echo 'Invoking: GCC C Linker'
-	$(CC) $(VERIFIER_FINAL_OBJS) -o $(VERIFIER_OUTPUT) $(THIRD_PARTY_LIB)  -lmysqlclient -lcrypto 
+	$(CC) $(VERIFIER_FINAL_OBJS) -o $(VERIFIER_OUTPUT) -lmysqlclient -lcrypto
 	@echo 'Finished building $@'
 	@echo ' '
 
 extractor: $(EXTRACTOR_FINAL_OBJS)
 	@echo 'Linking: $@'
 	@echo 'Invoking: GCC C Linker'
-	$(CC) $(EXTRACTOR_FINAL_OBJS) -o $(EXTRACTOR_OUTPUT) $(THIRD_PARTY_LIB) -lmysqlclient -lcrypto -ldl -lbfd -lm
+	$(CC) $(EXTRACTOR_FINAL_OBJS) -o $(EXTRACTOR_OUTPUT) -lmysqlclient -lcrypto -ldl -lbfd -lm
 	@echo 'Finished building $@'
 	@echo ' '
 
@@ -292,8 +288,3 @@ clean-partials:
 	@echo ' '	
 
 .PHONY: all clean manager verifier-forwarder verifier extractor
-
-
-
-
-
