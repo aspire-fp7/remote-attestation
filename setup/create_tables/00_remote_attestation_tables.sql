@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `ra_attestator` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'DB id for the attestator',
   `application_id` bigint(20) unsigned NOT NULL COMMENT 'Foreign key: refers to DB id of the associated record in the ra_application table',
   `attestator_no` bigint(20) unsigned zerofill NOT NULL COMMENT 'number of the attestator inside the application',
-  `description` varchar(100) NOT NULL COMMENT 'Optional text filed for comments about the attestator',
+  `description` varchar(100) DEFAULT NULL COMMENT 'Optional text filed for comments about the attestator',
   `sleep_avg` int(10) unsigned NOT NULL DEFAULT '10' COMMENT 'Mean period (in seconds) between two attestation request ',
   `sleep_var` int(10) unsigned NOT NULL DEFAULT '1' COMMENT 'Variation around the mean period, for random reasons',
   PRIMARY KEY (`id`),
