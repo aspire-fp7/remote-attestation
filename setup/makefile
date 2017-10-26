@@ -15,16 +15,11 @@ EXTRACTOR_OUTPUT			:=	$(OUTDIR)/extractor_exe
 THIRD_PARTY_DIR				=	/opt/3rd_party
 THIRD_PARTY_INCLUDE			=	-I$(THIRD_PARTY_DIR)/libwebsockets/serverlinux/include \
 								-I$(THIRD_PARTY_DIR)/openssl/serverlinux/include \
-								-I$(THIRD_PARTY_DIR)/curl/serverlinux/include  
 
 ASCL_INCLUDE				=	-I/opt/ASCL/include
 
 THIRD_PARTY_LIB				=	-L$(THIRD_PARTY_DIR)/libwebsockets/serverlinux/lib \
 								-L$(THIRD_PARTY_DIR)/openssl/serverlinux/lib \
-								-L$(THIRD_PARTY_DIR)/curl/serverlinux/lib  
-
-LIBCURL_LIB					=	-L/home/aspire/repos/framework/development/ACCL/main/thirdparty/lib/
-
 
 ifdef DBG
 	DBG_FLAGS := -DDEBUG -g3
