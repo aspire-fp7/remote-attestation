@@ -52,8 +52,9 @@ EXTRACTOR_OBJS_DIR 			:= $(OUTDIR)/extractor
 BLAKE2_OBJS_DIR 			:= $(OUTDIR)/blake2
 
 HEADERS_DIR				:= $(SRCDIR)/headers 
+HEADERS_EXTERNAL_DIR	:= $(SRCDIR)/headers/external
 HEADERS_PARAM_DIR		:= $(SRCDIR)/client-parametric-files/uncond
-C_FLAGS += -I$(HEADERS_DIR) -I$(HEADERS_PARAM_DIR)
+C_FLAGS += -I$(HEADERS_DIR) -I$(HEADERS_PARAM_DIR) -I$(HEADERS_EXTERNAL_DIR)
 
 OBJS_DIRS = \
 	$(BLOCKS_OBJS_DIR) \
@@ -208,7 +209,7 @@ all-specific: verifier extractor
 all-indipendent-clean:  manager verifier-forwarder clean-partials
 all-specific-clean: verifier extractor clean-partials
 
-$(OUTDIR)/blake2/%.o: $(SRCDIR)/ra-additionals/blake2s-ref.c
+$(OUTDIR)/blake2/%.o: $(SRCDIR)/ra-additionals/external/blake2s-ref.c
 	@echo 'Building file: $<'
 	mkdir -p $(BLAKE2_OBJS_DIR)
 	$(CC) -c "$<" -o "$@" $(C_FLAGS) 

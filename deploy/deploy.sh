@@ -99,11 +99,11 @@ do
 	echo "Block definition file: $blocksPath/$currAttestatorName"
 
 	cd $baseDir
-	makeOutTmpDir=./tmpOut || exit 1
-	make -s all-specific-clean DBG=1 OUTDIR=$makeOutTmpDir SRCDIR=$srcDir BLOCKS_INCLUDE_FILE=$blocksPath/$currAttestatorName || exit 1
+	makeOutTmpDir=$(mktemp -d) || exit 1
+	make -s -C $srcDir all-specific-clean DBG=1 OUTDIR=$makeOutTmpDir SRCDIR=$srcDir BLOCKS_INCLUDE_FILE=$blocksPath/$currAttestatorName || exit 1
 	mv -fv $makeOutTmpDir/verifier_exe 	$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/verifier || exit 1
 	mv -fv $makeOutTmpDir/extractor_exe 	$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/extractor || exit 1
-	rm -rfv $makeOutTmpDir || exit 1
+	rm -rf || exit 1
 	cd -
 
 	cp -fv $diabloOutPath/ads_$currAttestatorName 	$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/binaries/ads || exit 1

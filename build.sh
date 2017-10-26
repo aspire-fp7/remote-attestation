@@ -25,7 +25,7 @@ server_dir=$build_dir/server
 mkdir -p $server_dir
 makeOutTmpDir=$(mktemp -d)
 asclObj=/opt/ASCL/obj/serverlinux/ascl.o
-make -C $repo_dir/setup -s  all-indipendent-clean OUTDIR=$makeOutTmpDir SRCDIR=$repo_dir/src ASCL=$asclObj DBG=1
+make -C $repo_dir/src -s  all-indipendent-clean OUTDIR=$makeOutTmpDir SRCDIR=$repo_dir/src ASCL=$asclObj DBG=1
 mv $makeOutTmpDir/verifier_forwarder_exe $server_dir/ra_forwarder
 mv $makeOutTmpDir/manager_exe $server_dir/ra_manager
 rm -rf $makeOutTmpDir
