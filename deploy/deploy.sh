@@ -93,21 +93,21 @@ do
 	echo "Working on attestator: $currAttestatorName"
 	currAttestatorNumber=$(printf "%020lu" $((16#$(hexdump -s 16 -n 8 -v  $diabloOutPath/ads_$currAttestatorName -e '1/4 "%08X" "\n"' | tac | tr -d '\n'))))
 	echo "Attestator number: $currAttestatorNumber"
-	mkdir -pv $backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/binaries || exit 1
+	mkdir -pv $backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/binaries
 
 	echo "Building server side application dependent components"
 	echo "Block definition file: $blocksPath/$currAttestatorName"
 
 	cd $baseDir
-	makeOutTmpDir=$(mktemp -d) || exit 1
-	make -s -C $srcDir all-specific-clean DBG=1 OUTDIR=$makeOutTmpDir SRCDIR=$srcDir BLOCKS_INCLUDE_FILE=$blocksPath/$currAttestatorName || exit 1
-	mv -fv $makeOutTmpDir/verifier_exe 	$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/verifier || exit 1
-	mv -fv $makeOutTmpDir/extractor_exe 	$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/extractor || exit 1
-	rm -rf || exit 1
+	makeOutTmpDir=$(mktemp -d)
+	make -s -C $srcDir all-specific-clean DBG=1 OUTDIR=$makeOutTmpDir SRCDIR=$srcDir BLOCKS_INCLUDE_FILE=$blocksPath/$currAttestatorName
+	mv -fv $makeOutTmpDir/verifier_exe 	$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/verifier
+	mv -fv $makeOutTmpDir/extractor_exe 	$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/extractor
+	rm -rf
 	cd -
 
-	cp -fv $diabloOutPath/ads_$currAttestatorName 	$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/binaries/ads || exit 1
-	cp -fv $binaryName				$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/binaries/exe || exit 1
+	cp -fv $diabloOutPath/ads_$currAttestatorName 	$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/binaries/ads
+	cp -fv $binaryName				$backendsDir/$stringAID/remote_attestation/$currAttestatorNumber/binaries/exe
 
 	echo "Extract attestator frequency"
 	frequency=$(cat $blocksPath/../frequencies/$currAttestatorName.freq)
