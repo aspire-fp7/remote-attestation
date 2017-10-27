@@ -11,7 +11,7 @@ AID=$1
 baseDir=$(dirname $0)
 filename=$(basename "$0")
 
-. $baseDir/deploy/deploy.env
+. $baseDir/deploy.env
 
 echo "Database $raDbName"
 echo "mysql -u ra_user -h $serverAddress $raDbName -B --disable-column-names -e \"SELECT id FROM ra_application WHERE AID = '$AID'\""

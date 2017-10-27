@@ -11,7 +11,6 @@ mkdir -p $build_dir
 cd $build_dir
 
 # Create extra symlinks
-ln -s $repo_dir/deploy/ $build_dir
 ln -s $repo_dir/scripts/ $build_dir
 ln -s $repo_dir/setup/ $build_dir
 ln -s $repo_dir/src/ $build_dir
