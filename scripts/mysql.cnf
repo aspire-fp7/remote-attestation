@@ -1,0 +1,5 @@
+[client]
+host     = mysql
+database = RA_development
+user     = ra_user
+password = aspire

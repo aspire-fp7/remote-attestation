@@ -73,13 +73,13 @@ echo "$(ls $blocksPath)"
 
 # Add new application in the DB
 echo "Removing application with AID data from database"
-mysql -u ra_user -h $serverAddress $raDbName -e "DELETE FROM ra_application WHERE AID = '$stringAID'"
+mysql --defaults-file=$baseDir/mysql.cnf -e "DELETE FROM ra_application WHERE AID = '$stringAID'"
 echo "Adding new AID in database"
-dbAppId=$(mysql -u ra_user -h $serverAddress $raDbName \
+dbAppId=$(mysql --defaults-file=$baseDir/mysql.cnf \
 	-B --disable-column-names -e \
 	"INSERT INTO ra_application( id, AID ) VALUES (null, '$stringAID' ); SELECT LAST_INSERT_ID()")
 
-mysql -u ra_user -h $serverAddress $raDbName -e "INSERT INTO ra_reaction(id, application_id, reaction_status_id) VALUES (NULL, '$dbAppId', 2)" &>/dev/null
+mysql --defaults-file=$baseDir/mysql.cnf -e "INSERT INTO ra_reaction(id, application_id, reaction_status_id) VALUES (NULL, '$dbAppId', 2)" &>/dev/null
 
 if [ ! "$(ls -A $blocksPath)" ]; then
         echo "No remote attestation extracted"
@@ -113,7 +113,7 @@ do
 	frequency=$(cat $blocksPath/../frequencies/$currAttestatorName.freq)
 
 	echo "Add attestator in the DB (nr: $currAttestatorNumber, name: $currAttestatorName, f: $frequency)"
-	currAttestatorDbId=$(mysql -u ra_user -h $serverAddress $raDbName -B --disable-column-names -e \
+	currAttestatorDbId=$(mysql --defaults-file=$baseDir/mysql.cnf -B --disable-column-names -e \
 		"INSERT INTO ra_attestator(id, application_id, attestator_no, sleep_avg) VALUES (null, '$dbAppId' , '$currAttestatorNumber' , '$frequency' ); SELECT LAST_INSERT_ID()")
 
 	echo "Generating initial 100 prepared data for current attestator (launching extractor)"
@@ -131,7 +131,7 @@ do
 		for areaLabel in $(cat $diabloOutPath/startup_labels_$currAttestatorName)
 		do
 			echo "Startup area: $areaLabel"
-			mysql -u ra_user -h $serverAddress $raDbName -B --disable-column-names -e \
+			mysql --defaults-file=$baseDir/mysql.cnf -B --disable-column-names -e \
 				"INSERT INTO ra_attest_at_startup_area(attestator_id, memory_area) VALUES ($currAttestatorDbId,$areaLabel)" > /dev/null
 		done
 	fi
