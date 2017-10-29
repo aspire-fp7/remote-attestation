@@ -42,10 +42,6 @@ do
 	esac
 done
 
-echo "**** start Aspire Portal if it is not running ****"
-PORTAL_RUNNING=$(pidof uwsgi)
-[ "${PORTAL_RUNNING}" == "" ] && /opt/ASCL/aspire-portal/start-aspire-portal.sh
-
 if ! pidof ra_manager &> /dev/null; then
   raManagerExe=$(dirname $baseDir)/server/ra_manager
   logFile=$backendsDir/remote_attestation/ra_manager.log
