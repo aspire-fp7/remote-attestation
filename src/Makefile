@@ -15,7 +15,7 @@ EXTRACTOR_OUTPUT			:=	$(OUTDIR)/extractor_exe
 THIRD_PARTY_DIR				=	/opt/3rd_party
 THIRD_PARTY_INCLUDE			=	-I$(THIRD_PARTY_DIR)/openssl/serverlinux/include
 
-ASCL_INCLUDE				=	-I/opt/ASCL/include
+ASCL_INCLUDE				=	-I$(ASCL)/include
 
 ifdef DBG
 	DBG_FLAGS := -DDEBUG -g3
@@ -163,8 +163,7 @@ MANAGER_FINAL_OBJS = \
 	$(MANAGER_BLOCKS_OBJS) \
 	$(MANAGER_OBJS) \
 	$(MANAGER_INCLUDES_OBJS) \
-	$(ASCL)
-	#TODO remove ascl.o after ACTC integration
+	$(ASCL)/obj/serverlinux/ascl.o
 
 VERIFIER_FORWARDER_FINAL_OBJS = \
 	$(VERIFIER_FORWARDER_OBJS)

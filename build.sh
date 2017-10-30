@@ -23,8 +23,7 @@ echo "**** RA server environment setup ****"
 server_dir=$build_dir/server
 mkdir -p $server_dir
 makeOutTmpDir=$(mktemp -d)
-asclObj=/opt/ASCL/obj/serverlinux/ascl.o
-make -C $repo_dir/src -s  all-indipendent-clean OUTDIR=$makeOutTmpDir SRCDIR=$repo_dir/src ASCL=$asclObj DBG=1
+make -C $repo_dir/src -s  all-indipendent-clean OUTDIR=$makeOutTmpDir SRCDIR=$repo_dir/src ASCL=/opt/ASCL
 mv $makeOutTmpDir/manager_exe $server_dir/ra_manager
 rm -rf $makeOutTmpDir
 echo "**** Server environment setup completed****"
