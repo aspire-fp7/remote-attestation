@@ -42,16 +42,6 @@ do
 	esac
 done
 
-if ! pidof ra_manager &> /dev/null; then
-  raManagerExe=$(dirname $baseDir)/server/ra_manager
-  logFile=$backendsDir/remote_attestation/ra_manager.log
-	echo "++++ Starting Manager"
-	echo "++++ (log file: $logFile)"
-  $raManagerExe $(nproc) 2>&1 | cat >> $logFile &
-else
-	echo "++++ Manager is already running"
-fi
-
 echo "**** Deploying RA application components on server ****"
 if [ -z ${stringAID} ]; then
 	echo "AID option required: -a <AID string>"
