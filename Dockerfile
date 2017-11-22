@@ -12,6 +12,6 @@ COPY modules/remote_attestation /tmp/remote_attestation
 RUN /tmp/remote_attestation/build_server.sh /opt/remote_attestation /opt/ASCL
 
 # Clean up
-RUN rm -rf /tmp
+RUN rm -rf /tmp/*
 
 ENTRYPOINT /opt/remote_attestation/ra_manager $(nproc) >> /opt/online_backends/remote_attestation/ra_manager.log 2>&1
